@@ -17,7 +17,11 @@ comment:
   after_n_builds: 1
   layout: "header, diff, files, components, sunburst, uncovered, footer"
   behavior: default
-  require_changes: false
+  # Only post (or update) the PR comment when patch / project coverage
+  # actually moves. Reduces noise from comment edits on every push when
+  # the underlying numbers are unchanged. The `codecov/patch` and
+  # `codecov/project` status checks still gate merges either way.
+  require_changes: true
   require_base: false
   require_head: false
   hide_project_coverage: false
@@ -47,10 +51,13 @@ flags:
 
 component_management:
   default_rules:
-    statuses:
-      - type: project
-        target: 90%
-        threshold: 1%
+    # No per-component GitHub status checks. Components still appear
+    # in the codecov PR comment under the "components" layout block
+    # so authors see which surface moved, but we don't spam the merge
+    # box with a separate row per component. The repo-wide gates are
+    # enforced by the aggregate `codecov/project` and `codecov/patch`
+    # statuses defined under `coverage.status` below.
+    statuses: []
   individual_components:
     # ============================================================
     # COCKPIT (native agent rendering)
