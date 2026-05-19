@@ -78,7 +78,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           }
         | null;
       if (!data || data.type !== "aoe-push" || !data.payload) return;
-      const title = data.payload.title ?? "Agent of Empires";
+      const title = data.payload.title ?? "AI CLI Manager";
       const body = data.payload.body ?? "";
       const message = body ? `${title}: ${body}` : title;
       const sessionId = data.payload.session_id;

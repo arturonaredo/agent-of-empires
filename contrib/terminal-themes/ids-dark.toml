@@ -1,0 +1,37 @@
+# IDS Dark - Terminal Color Scheme
+# For use with terminal emulators (iTerm2, Alacritty, Kitty, etc.)
+# Maps IDS Inditex Design System colors to ANSI 16-color palette.
+
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#ffffff"
+
+[colors.selection]
+text = "#ffffff"
+background = "#363636"
+
+# Normal colors (0-7)
+[colors.normal]
+black   = "#000000"  # bg
+red     = "#ff4a3f"  # alt-red-mid
+green   = "#23f444"  # core-sales
+yellow  = "#ea732e"  # alt-orange-mid
+blue    = "#6680ff"  # core-ai-high
+magenta = "#b15ff1"  # alt-purple-mid
+cyan    = "#00a3a3"  # alt-teal-mid
+white   = "#ffffff"  # fg
+
+# Bright colors (8-15)
+[colors.bright]
+black   = "#757575"  # content low
+red     = "#fe9693"  # alt-red-high (dark)
+green   = "#9df5ab"  # alt-green-high (dark)
+yellow  = "#feb48d"  # alt-orange-high (dark)
+blue    = "#89c1fe"  # alt-blue-high (dark)
+magenta = "#d4bbfb"  # alt-purple-high (dark)
+cyan    = "#80e8d1"  # alt-teal-high (dark)
+white   = "#ffffff"  # content-default

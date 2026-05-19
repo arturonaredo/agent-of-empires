@@ -133,49 +133,37 @@ pub struct Theme {
 
 impl Default for Theme {
     fn default() -> Self {
-        // Hardcoded Empire palette used only as serde's per-field
+        // Hardcoded IDS Dark palette used only as serde's per-field
         // fallback for partial custom TOMLs. Must NOT round-trip
-        // through `load_theme("empire")` + `toml::from_str`: serde's
-        // container-level `#[serde(default)]` calls Theme::default()
-        // every time it deserializes a Theme (to seed the struct
-        // before overwriting present fields), so parsing any TOML
-        // would re-enter Default which would re-parse Empire which
-        // would re-enter Default... a self-referential deadlock. The
-        // values mirror `themes/builtin/empire.toml`; if Empire's
-        // palette ever drifts, sync this manually (or replace with a
-        // build-time codegen step).
+        // through `load_theme("dark")` + `toml::from_str` to avoid
+        // a self-referential deadlock. The values mirror
+        // `themes/builtin/dark.toml`; sync manually if the palette drifts.
         Self {
-            background: Color::Rgb(0x0f, 0x17, 0x2a),
-            border: Color::Rgb(0x33, 0x41, 0x55),
-            terminal_border: Color::Rgb(0x0d, 0x94, 0x88),
-            selection: Color::Rgb(0x26, 0x32, 0x4b),
-            session_selection: Color::Rgb(0x37, 0x41, 0x5c),
-            title: Color::Rgb(0xfb, 0xbf, 0x24),
-            text: Color::Rgb(0xcb, 0xd5, 0xe1),
-            dimmed: Color::Rgb(0x64, 0x74, 0x8b),
-            hint: Color::Rgb(0x94, 0xa3, 0xb8),
-            running: Color::Rgb(0x22, 0xc5, 0x5e),
-            waiting: Color::Rgb(0xfb, 0xbf, 0x24),
-            fresh_idle: Color::Rgb(0xf5, 0x9e, 0x0b),
-            idle: Color::Rgb(0x64, 0x74, 0x8b),
-            error: Color::Rgb(0xef, 0x44, 0x44),
-            terminal_active: Color::Rgb(0x0d, 0x94, 0x88),
-            group: Color::Rgb(0xcb, 0xd5, 0xe1),
-            search: Color::Rgb(0xfb, 0xbf, 0x24),
-            accent: Color::Rgb(0xd9, 0x77, 0x06),
-            diff_add: Color::Rgb(0x22, 0xc5, 0x5e),
-            diff_delete: Color::Rgb(0xef, 0x44, 0x44),
-            diff_modified: Color::Rgb(0xfb, 0xbf, 0x24),
-            diff_header: Color::Rgb(0x0d, 0x94, 0x88),
-            help_key: Color::Rgb(0xd9, 0x77, 0x06),
-            branch: Color::Rgb(0x0d, 0x94, 0x88),
-            sandbox: Color::Rgb(0x94, 0xa3, 0xb8),
-            // appearance and syntax default to None / empty here,
-            // but the per-field `#[serde(default)]` attributes on
-            // those fields take precedence over this container
-            // default, so partial custom TOMLs that omit them still
-            // resolve to None rather than inheriting Empire's values
-            // (covered by `partial_custom_theme_does_not_inherit_metadata`).
+            background: Color::Rgb(0x11, 0x11, 0x11),
+            border: Color::Rgb(0x2e, 0x2e, 0x2e),
+            terminal_border: Color::Rgb(0xe0, 0xe0, 0xe0),
+            selection: Color::Rgb(0x2a, 0x2a, 0x2a),
+            session_selection: Color::Rgb(0x1c, 0x1c, 0x1c),
+            title: Color::Rgb(0xff, 0xff, 0xff),
+            text: Color::Rgb(0xff, 0xff, 0xff),
+            dimmed: Color::Rgb(0xc4, 0xc4, 0xc4),
+            hint: Color::Rgb(0xc4, 0xc4, 0xc4),
+            running: Color::Rgb(0x23, 0xf4, 0x44),
+            waiting: Color::Rgb(0xea, 0x73, 0x2e),
+            fresh_idle: Color::Rgb(0xc4, 0x60, 0x2a),
+            idle: Color::Rgb(0x75, 0x75, 0x75),
+            error: Color::Rgb(0xff, 0x4a, 0x3f),
+            terminal_active: Color::Rgb(0x66, 0x80, 0xff),
+            group: Color::Rgb(0xff, 0xff, 0xff),
+            search: Color::Rgb(0x66, 0x80, 0xff),
+            accent: Color::Rgb(0xff, 0xff, 0xff),
+            diff_add: Color::Rgb(0x23, 0xf4, 0x44),
+            diff_delete: Color::Rgb(0xff, 0x4a, 0x3f),
+            diff_modified: Color::Rgb(0xea, 0x73, 0x2e),
+            diff_header: Color::Rgb(0x66, 0x80, 0xff),
+            help_key: Color::Rgb(0xff, 0xff, 0xff),
+            branch: Color::Rgb(0x66, 0x80, 0xff),
+            sandbox: Color::Rgb(0xc4, 0xc4, 0xc4),
             appearance: None,
             syntax: ThemeSyntax { shiki_theme: None },
         }

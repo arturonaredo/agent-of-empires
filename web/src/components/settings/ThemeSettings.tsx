@@ -32,7 +32,7 @@ export function ThemeSettings({ settings, onSaveField, onUpdate }: Props) {
     <div className="space-y-4">
       <p className="text-xs text-text-dim">
         Theme applies to both the TUI and the web dashboard. Custom themes
-        in <code>~/.agent-of-empires/themes/*.toml</code> appear alongside
+        in <code>~/.ai-cli-manager/themes/*.toml</code> appear alongside
         the builtins.
       </p>
       <SelectField
@@ -41,19 +41,7 @@ export function ThemeSettings({ settings, onSaveField, onUpdate }: Props) {
         onChange={(v) => save("name", v)}
         options={themes.map((t) => ({ value: t, label: t }))}
       />
-      <SelectField
-        label="Color mode"
-        value={(theme.color_mode as string) ?? "truecolor"}
-        onChange={(v) => save("color_mode", v)}
-        options={[
-          { value: "truecolor", label: "Truecolor (24-bit RGB)" },
-          { value: "palette", label: "Palette (256 colors)" },
-        ]}
-      />
-      <p className="text-xs text-text-dim">
-        Color mode only affects the TUI; the web dashboard always uses
-        truecolor.
-      </p>
+
     </div>
   );
 }

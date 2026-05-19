@@ -40,8 +40,8 @@ export function LoginPage({ onSuccess }: Props) {
         <form onSubmit={handleSubmit} className="bg-surface-800 border border-surface-700/40 rounded-xl p-8">
           {/* Logo */}
           <div className="flex items-center justify-center gap-2 mb-8">
-            <img src="/icon-192.png" alt="" width="28" height="28" className="rounded-sm" />
-            <span className="font-mono text-lg text-text-primary tracking-tight">aoe</span>
+            <img src="/favicon.svg" alt="" width="28" height="28" />
+            <span className="font-mono text-lg text-text-primary tracking-tight">AI CLI Manager</span>
           </div>
 
           {/* Passphrase input */}
