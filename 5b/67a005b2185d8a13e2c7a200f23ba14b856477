@@ -1,0 +1,82 @@
+web/src/components/session-wizard/steps/ReviewStep.tsx
+  s_9b044e71af3d63::t_8139e04292a71f 156
+src/tui/dialogs/new_session/render.rs
+  s_9b044e71af3d63::t_b5c0e36a2586f6 142-146
+  s_9b044e71af3d63::t_e71d10b5f31e31 67
+  s_9b044e71af3d63::t_fe606639509d7b 383-411
+src/server/api/aicontext.rs
+  s_9b044e71af3d63::t_82cc91dfc28407 1-3,5-10,12-47,50-53,56-65,68-95,97,100-116,153,155-170,172-173,175-176,179-190,192-193,196-199,202-232
+  s_9b044e71af3d63::t_29218d7da3f9a4 171
+  s_9b044e71af3d63::t_dacfd0adaa1d8c 123-129,132-142,144-146
+  s_9b044e71af3d63::t_3d2577bc224893 4,11,48-49,54-55,66-67,96,98-99,117-121,143,147-152,174,177-178,191,194-195,200-201
+  s_9b044e71af3d63::t_48d7eb44e656fb 154
+  s_9b044e71af3d63::t_f3c83aa7d981b3 122,130-131
+src/server/api/sessions.rs
+  s_9b044e71af3d63::t_f39457a459c435 975-977
+  s_9b044e71af3d63::t_0712d2c3dba7e9 1319-1320,1323
+  s_9b044e71af3d63::t_23586c7708670f 1137-1157
+  s_9b044e71af3d63::t_ed50b458223c93 1129
+src/server/mod.rs
+  s_9b044e71af3d63::t_7e8a8575945229 284-285
+  s_9b044e71af3d63::t_7bb5925890f690 1199
+  s_9b044e71af3d63::t_cc73e09194f087 546
+  s_9b044e71af3d63::t_c807c47a70c64d 1010-1019
+src/session/builder.rs
+  s_9b044e71af3d63::t_6279e208686bb7 45-46
+web/src/lib/types.ts
+  s_9b044e71af3d63::t_196269d1ced912 297-298
+web/src/components/session-wizard/wizardReducer.ts
+  s_9b044e71af3d63::t_4dad63e9f75397 32
+  s_9b044e71af3d63::t_8ed03b44d99ffd 86
+web/src/components/AicontextPanel.tsx
+  s_9b044e71af3d63::t_e1a41a588a5579 18-30
+src/tui/home/operations.rs
+  s_9b044e71af3d63::t_48f087234ddbcf 58-85
+  s_9b044e71af3d63::t_f24a246f8b0d0d 45
+web/src/components/session-wizard/steps/AgentStep.tsx
+  s_9b044e71af3d63::t_7895ef54d1c267 258
+  s_9b044e71af3d63::t_36dc227d63a669 249-257,259
+web/src/components/session-wizard/SessionWizard.tsx
+  s_9b044e71af3d63::t_aac4b902cb66ba 205
+src/server/api/mod.rs
+  s_9b044e71af3d63::t_9556cb39e6d636 13
+  s_9b044e71af3d63::t_aca14004a63887 180-183
+web/src/components/WorkspaceSidebar.tsx
+  s_9b044e71af3d63::t_a6c3882780ff59 15
+  s_9b044e71af3d63::t_21871d2b948e98 764-775
+  s_9b044e71af3d63::t_d6091434357465 721,728
+  s_9b044e71af3d63::t_45aa23300184de 835
+  s_9b044e71af3d63::t_bd793ac0d8c289 1137-1140
+  s_9b044e71af3d63::t_c1b3c358c2c112 1055
+src/tui/dialogs/new_session/mod.rs
+  s_9b044e71af3d63::t_e752ca69d812bb 896-900
+  s_9b044e71af3d63::t_cf6693262609cc 678,742
+  s_9b044e71af3d63::t_a02e34a9b84f41 1088
+  s_9b044e71af3d63::t_1b2f9ca807fca3 422
+  s_9b044e71af3d63::t_e396c98bd4f093 1624
+  s_9b044e71af3d63::t_66c367a02a04de 99-100
+  s_9b044e71af3d63::t_417dbd869e6a28 1076-1081
+  s_9b044e71af3d63::t_d42e9e2c95ea44 132-133
+src/session/instance.rs
+  s_9b044e71af3d63::t_68cfd70dfe8383 950
+  s_9b044e71af3d63::t_e06a544618470b 1207
+src/tui/creation_poller.rs
+  s_9b044e71af3d63::t_6b31beb48e5232 147-167
+  s_9b044e71af3d63::t_758246362a35ea 127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "5b67a005b2185d8a13e2c7a200f23ba14b856477",
+  "prompts": {},
+  "sessions": {
+    "s_9b044e71af3d63": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1bf943864ffe0dpYXPJReYrXS1",
+        "model": "unknown"
+      },
+      "human_author": "Arturo Naredo Ortega <arturono@inditex.com>"
+    }
+  }
+}
