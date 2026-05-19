@@ -153,6 +153,7 @@ export function ReviewStep({ data, onChange, isSubmitting, error, onSubmit, onJu
           <Row label="Container" value={data.sandboxImage || "default"} stepId={hasStep("container") ? "container" : undefined} onJumpTo={onJumpTo} />
         )}
         <Row label="Auto-approve" value={data.yoloMode ? "On" : "Off"} stepId="agent" onJumpTo={onJumpTo} />
+        <Row label="AI Context" value={(data as Record<string, unknown>).aicontextInit ? "On" : "Off"} stepId="agent" onJumpTo={onJumpTo} />
         {data.group && <Row label="Group" value={data.group} />}
         {data.extraArgs && <Row label="Extra args" value={data.extraArgs} />}
         {data.customInstruction && <Row label="Instructions" value="(set)" />}

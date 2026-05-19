@@ -10,6 +10,7 @@
 
 pub(super) use super::AppState;
 
+pub mod aicontext;
 #[cfg(feature = "serve")]
 mod client_log;
 #[cfg(feature = "serve")]
@@ -174,6 +175,11 @@ mod tests {
                 "api/projects.rs",
                 include_str!("projects.rs"),
                 &["create_project", "delete_project"],
+            ),
+            (
+                "api/aicontext.rs",
+                include_str!("aicontext.rs"),
+                &["aicontext_launch", "aicontext_stop"],
             ),
             (
                 "api/system.rs",

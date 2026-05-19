@@ -972,6 +972,9 @@ pub struct CreateSessionBody {
     #[cfg(feature = "serve")]
     #[serde(default)]
     pub cockpit_model: Option<String>,
+    /// Whether to run aicontext init + install on the project path
+    #[serde(default)]
+    pub aicontext_init: bool,
 }
 
 pub async fn create_session(
@@ -1123,12 +1126,34 @@ pub async fn create_session(
             extra_args: body.extra_args,
             command_override: body.command_override,
             extra_repo_paths,
+            aicontext_init: body.aicontext_init,
         };
 
         let build_result = builder::build_instance(params, &title_refs, &branch_refs, &profile)?;
         let mut instance = build_result.instance;
         instance.source_profile = profile.clone();
         let build_warnings = build_result.warnings;
+
+        // Run aicontext init + install if requested
+        if body.aicontext_init {
+            let project_path = std::path::Path::new(&instance.project_path);
+            let runtimes_root = project_path.join("runtimes/root");
+            if !runtimes_root.is_dir() {
+                tracing::info!(target: "server.api", "Running aicontext init on {}", instance.project_path);
+                let _ = std::process::Command::new("sh")
+                    .arg("-c")
+                    .arg(format!("echo y | aicontext init {:?}", project_path))
+                    .status();
+            }
+            let runtimes_root = project_path.join("runtimes/root");
+            if runtimes_root.is_dir() {
+                tracing::info!(target: "server.api", "Running aicontext install in {}", runtimes_root.display());
+                let _ = std::process::Command::new("aicontext")
+                    .arg("install")
+                    .current_dir(&runtimes_root)
+                    .status();
+            }
+        }
 
         // Apply per-session sandbox overrides from the request body.
         if let Some(ref mut sandbox) = instance.sandbox_info {
@@ -1291,10 +1316,11 @@ pub async fn create_session(
             (StatusCode::CREATED, Json(resp)).into_response()
         }
         Ok(Err(e)) => {
-            tracing::warn!(target: "http.api.sessions", "Session creation failed: {}", e);
+            let msg = format!("{:#}", e);
+            tracing::warn!(target: "http.api.sessions", "Session creation failed: {}", msg);
             (
                 StatusCode::BAD_REQUEST,
-                Json(serde_json::json!({"error": "create_failed", "message": "Failed to create session"})),
+                Json(serde_json::json!({"error": "create_failed", "message": msg})),
             )
                 .into_response()
         }

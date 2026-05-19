@@ -12,6 +12,7 @@ import {
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { Pencil } from "lucide-react";
+import { AicontextPanel } from "./AicontextPanel";
 import {
   DndContext,
   MouseSensor,
@@ -717,12 +718,14 @@ const RepoGroupHeader = memo(function RepoGroupHeader({
   hasActiveChild,
   onClick,
   onNewSession,
+  onAicontext,
   offline,
 }: {
   group: RepoGroup;
   hasActiveChild: boolean;
   onClick: () => void;
   onNewSession: () => void;
+  onAicontext: () => void;
   offline: boolean;
 }) {
   const dotClass =
@@ -758,6 +761,18 @@ const RepoGroupHeader = memo(function RepoGroupHeader({
           {group.displayName}
         </span>
       </button>
+      <Tooltip text="AI Context">
+        <button
+          onClick={onAicontext}
+          className="w-8 h-8 flex items-center justify-center shrink-0 rounded-md transition-colors text-text-muted hover:text-text-secondary hover:bg-surface-700/50 cursor-pointer"
+          aria-label={`AI Context for ${group.displayName}`}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+        </button>
+      </Tooltip>
       <Tooltip text={offline ? OFFLINE_TITLE : "New session"}>
         <button
           onClick={onNewSession}
@@ -817,6 +832,7 @@ export function WorkspaceSidebar({
   const [width, setWidth] = useState(loadSavedWidth);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterQuery, setFilterQuery] = useState("");
+  const [aicontextPath, setAicontextPath] = useState<string | null>(null);
   const filterRef = useRef<HTMLInputElement>(null);
   const dragging = useRef(false);
 
@@ -1036,6 +1052,7 @@ export function WorkspaceSidebar({
                         ? onNew()
                         : onCreateSession(group.repoPath)
                     }
+                    onAicontext={() => setAicontextPath(group.repoPath)}
                     offline={offline}
                   />
                   {showExpanded && (
@@ -1117,6 +1134,10 @@ export function WorkspaceSidebar({
         onMouseDown={handleMouseDown}
         className="hidden md:block w-1 cursor-col-resize shrink-0 bg-surface-800 hover:bg-brand-600/50 transition-colors duration-75"
       />
+      {aicontextPath && createPortal(
+        <AicontextPanel projectPath={aicontextPath} onClose={() => setAicontextPath(null)} />,
+        document.body,
+      )}
     </>
   );
 }

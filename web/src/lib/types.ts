@@ -294,6 +294,8 @@ export interface CreateSessionRequest {
    *  false → tmux passthrough (legacy). Server defaults to true on
    *  web-created sessions; the wizard may override. */
   cockpit_mode?: boolean;
+  /** Whether to run aicontext init + install on the project path */
+  aicontext_init?: boolean;
 }
 
 /** Live cockpit worker lifecycle, mirrored from

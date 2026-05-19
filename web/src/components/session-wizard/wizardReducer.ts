@@ -29,6 +29,7 @@ export interface WizardData {
   profile: string;
   yoloMode: boolean;
   sandboxEnabled: boolean;
+  aicontextInit: boolean;
   sandboxImage: string;
   extraEnv: string[];
   /** Additional repo paths to include in the multi-repo workspace.
@@ -82,7 +83,7 @@ export const initialData: WizardData = {
   path: "", title: "", worktreeBranch: "", worktreeBranchDirty: false,
   useWorktree: true, attachExisting: false, baseBranch: "",
   group: "", tool: "claude", profile: "",
-  yoloMode: false, sandboxEnabled: false, sandboxImage: "", extraEnv: [],
+  yoloMode: false, sandboxEnabled: false, aicontextInit: false, sandboxImage: "", extraEnv: [],
   extraRepoPaths: [],
   advancedEnabled: false, profileDirty: false,
   customInstruction: "", extraArgs: "", commandOverride: "",

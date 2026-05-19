@@ -915,6 +915,18 @@ impl Instance {
         tmux::Session::new(&self.id, &self.title)
     }
 
+    /// If the project contains an aicontext runtimes/root directory,
+    /// use it as working directory so the agent loads aicontext-managed
+    /// configuration (MCP servers, skills, agents). Falls back to project_path.
+    fn resolve_working_dir(&self) -> String {
+        let runtimes_root = std::path::Path::new(&self.project_path).join("runtimes/root");
+        if runtimes_root.is_dir() {
+            runtimes_root.to_string_lossy().to_string()
+        } else {
+            self.project_path.clone()
+        }
+    }
+
     pub fn terminal_tmux_session(&self) -> Result<tmux::TerminalSession> {
         tmux::TerminalSession::new(&self.id, &self.title)
     }
@@ -935,7 +947,7 @@ impl Instance {
 
         let is_new = !session.exists();
         if is_new {
-            session.create_with_size(&self.project_path, None, size)?;
+            session.create_with_size(&self.resolve_working_dir(), None, size)?;
         }
 
         // Apply all configured tmux options to terminal sessions too
@@ -1192,7 +1204,7 @@ impl Instance {
                 super::environment::redact_env_values(v)
             })
         );
-        session.create_with_size(&self.project_path, cmd.as_deref(), size)?;
+        session.create_with_size(&self.resolve_working_dir(), cmd.as_deref(), size)?;
 
         self.finalize_launch(session.name(), &profile);
 

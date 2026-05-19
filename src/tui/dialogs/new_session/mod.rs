@@ -96,6 +96,8 @@ pub struct NewSessionData {
     /// The sandbox image to use (always populated from the input field).
     pub sandbox_image: String,
     pub yolo_mode: bool,
+    /// Whether to initialize aicontext in the project
+    pub aicontext_init: bool,
     /// Additional environment entries for the container.
     /// `KEY` = pass through from host, `KEY=VALUE` = set explicitly.
     pub extra_env: Vec<String>,
@@ -127,6 +129,8 @@ pub struct NewSessionDialog {
     pub(super) docker_available: bool,
     pub(super) yolo_mode: bool,
     pub(super) yolo_mode_default: bool,
+    /// Whether to initialize aicontext in the project (runs aicontext init + install)
+    pub(super) aicontext_init: bool,
     /// Additional repo paths for multi-repo workspace
     pub(super) workspace_repos: Vec<String>,
     /// Whether the workspace repos list is expanded (editing mode)
@@ -415,6 +419,7 @@ impl NewSessionDialog {
             docker_available,
             yolo_mode,
             yolo_mode_default: yolo_mode,
+            aicontext_init: false,
             extra_env,
             env_list_expanded: false,
             env_selected_index: 0,
@@ -670,6 +675,7 @@ impl NewSessionDialog {
             docker_available: false,
             yolo_mode: false,
             yolo_mode_default: false,
+            aicontext_init: false,
             extra_env: Vec::new(),
             env_list_expanded: false,
             env_selected_index: 0,
@@ -733,6 +739,7 @@ impl NewSessionDialog {
             docker_available: false,
             yolo_mode: false,
             yolo_mode_default: false,
+            aicontext_init: false,
             extra_env: Vec::new(),
             env_list_expanded: false,
             env_selected_index: 0,
@@ -885,6 +892,11 @@ impl NewSessionDialog {
             f
         } else {
             usize::MAX
+        };
+        let aicontext_field = {
+            let f = fi;
+            fi += 1;
+            f
         };
         let group_field = fi;
         fi += 1;
@@ -1061,12 +1073,19 @@ impl NewSessionDialog {
                 self.yolo_mode = !self.yolo_mode;
                 DialogResult::Continue
             }
+            KeyCode::Left | KeyCode::Right | KeyCode::Char(' ')
+                if self.focused_field == aicontext_field =>
+            {
+                self.aicontext_init = !self.aicontext_init;
+                DialogResult::Continue
+            }
             _ => {
                 if self.focused_field != profile_field
                     && self.focused_field != tool_field
                     && self.focused_field != worktree_field
                     && self.focused_field != sandbox_field
                     && self.focused_field != yolo_mode_field
+                    && self.focused_field != aicontext_field
                 {
                     self.current_input_mut()
                         .handle_event(&crossterm::event::Event::Key(key));
@@ -1602,6 +1621,7 @@ impl NewSessionDialog {
             sandbox: self.sandbox_enabled,
             sandbox_image: self.sandbox_image.value().trim().to_string(),
             yolo_mode: self.yolo_mode || self.selected_tool_always_yolo(),
+            aicontext_init: self.aicontext_init,
             extra_env: if self.sandbox_enabled {
                 self.extra_env.clone()
             } else {

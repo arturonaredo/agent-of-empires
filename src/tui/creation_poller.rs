@@ -124,6 +124,7 @@ impl CreationPoller {
             extra_args: data.extra_args,
             command_override: data.command_override,
             extra_repo_paths: data.extra_repo_paths,
+            aicontext_init: data.aicontext_init,
         };
 
         let build_result =
@@ -142,6 +143,27 @@ impl CreationPoller {
         let created_worktree = build_result.created_worktree;
         let created_workspace_worktrees = build_result.created_workspace_worktrees;
         let warnings = build_result.warnings;
+
+        // Run aicontext init + install if requested
+        if data.aicontext_init {
+            let project_path = std::path::Path::new(&instance.project_path);
+            let runtimes_root = project_path.join("runtimes/root");
+            if !runtimes_root.is_dir() {
+                tracing::info!(target: "session.store", "Running aicontext init on {}", instance.project_path);
+                let _ = std::process::Command::new("sh")
+                    .arg("-c")
+                    .arg(format!("echo y | aicontext init {:?}", project_path))
+                    .status();
+            }
+            let runtimes_root = project_path.join("runtimes/root");
+            if runtimes_root.is_dir() {
+                tracing::info!(target: "session.store", "Running aicontext install in {}", runtimes_root.display());
+                let _ = std::process::Command::new("aicontext")
+                    .arg("install")
+                    .current_dir(&runtimes_root)
+                    .status();
+            }
+        }
 
         let has_on_create = hooks.as_ref().is_some_and(|h| !h.on_create.is_empty());
         let has_on_launch = hooks.as_ref().is_some_and(|h| !h.on_launch.is_empty());

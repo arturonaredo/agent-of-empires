@@ -281,6 +281,8 @@ pub struct AppState {
     /// graceful drain open until the browser tab decides to disconnect.
     /// See #1198.
     pub shutdown: CancellationToken,
+    /// Tracks running `aicontext console` subprocesses keyed by project path.
+    pub aicontext_processes: api::aicontext::AicontextProcesses,
 }
 
 impl AppState {
@@ -541,6 +543,7 @@ pub async fn start_server(config: ServerConfig<'_>) -> anyhow::Result<()> {
         web_config: config.web.clone(),
         last_web_activity: std::sync::atomic::AtomicI64::new(0),
         shutdown: CancellationToken::new(),
+        aicontext_processes: api::aicontext::AicontextProcesses::new(),
     });
 
     let app = build_router(state.clone());
@@ -1004,6 +1007,16 @@ fn build_router(state: Arc<AppState>) -> Router {
             get(api::list_projects).post(api::create_project),
         )
         .route("/api/projects/{name}", delete(api::delete_project))
+        // AI Context console
+        .route(
+            "/api/aicontext/launch",
+            post(api::aicontext::aicontext_launch),
+        )
+        .route(
+            "/api/aicontext/status",
+            get(api::aicontext::aicontext_status),
+        )
+        .route("/api/aicontext/stop", post(api::aicontext::aicontext_stop))
         .route("/api/docker/status", get(api::docker_status))
         // Settings + themes
         .route(
@@ -1183,6 +1196,7 @@ const CSP: &str = "default-src 'self'; \
     img-src 'self' data: https://github.com https://avatars.githubusercontent.com; \
     font-src 'self'; \
     connect-src 'self' ws: wss:; \
+    frame-src http://127.0.0.1:*; \
     frame-ancestors 'none'; \
     base-uri 'self'; \
     form-action 'self'; \

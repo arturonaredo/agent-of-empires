@@ -202,6 +202,7 @@ export function SessionWizard({ onClose, onCreated, prefill, cockpitMasterEnable
       // switch (see src/server/api/sessions.rs), so a tampered
       // client request can't escalate cockpit on.
       cockpit_mode: cockpitMasterEnabled && ACP_CAPABLE_TOOLS.has(d.tool),
+      aicontext_init: d.aicontextInit || undefined,
     };
     const result = await createSession(body);
     if (result.ok) {

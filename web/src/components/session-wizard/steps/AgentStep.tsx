@@ -246,6 +246,17 @@ export function AgentStep({ data, onChange, agents, profiles, dockerAvailable, o
           </div>
           <Toggle checked={data.yoloMode} onChange={(v) => onChange("yoloMode", v)} />
         </label>
+
+        <label
+          className="flex items-center justify-between gap-3 p-3 bg-surface-900 border border-surface-700 rounded-lg cursor-pointer"
+          onClick={() => onChange("aicontextInit", !data.aicontextInit)}
+        >
+          <div className="flex-1">
+            <div className="text-sm font-medium text-text-primary">AI Context</div>
+            <div className="text-xs text-text-dim mt-0.5 leading-snug">Initialize aicontext in the project (MCP servers, skills, agents).</div>
+          </div>
+          <Toggle checked={data.aicontextInit as boolean} onChange={(v) => onChange("aicontextInit", v)} />
+        </label>
       </div>
 
       {isHostOnly && (

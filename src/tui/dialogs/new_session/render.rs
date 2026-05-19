@@ -64,6 +64,7 @@ impl NewSessionDialog {
         if has_sandbox {
             constraints.push(Constraint::Length(2)); // Sandbox checkbox (summary only)
         }
+        constraints.push(Constraint::Length(2)); // AI Context checkbox
         constraints.push(Constraint::Length(2)); // Group (always, at the bottom)
 
         // For errors, calculate how many lines we need based on the text length.
@@ -137,6 +138,11 @@ impl NewSessionDialog {
             f
         } else {
             usize::MAX
+        };
+        let aicontext_field = {
+            let f = fi;
+            fi += 1;
+            f
         };
         let group_field = fi;
 
@@ -371,6 +377,35 @@ impl NewSessionDialog {
             }
 
             frame.render_widget(Paragraph::new(Line::from(spans)), chunks[ci]);
+            ci += 1;
+        }
+
+        // AI Context checkbox
+        {
+            let is_focused = self.focused_field == aicontext_field;
+            let label_style = if is_focused {
+                Style::default().fg(theme.accent).underlined()
+            } else {
+                Style::default().fg(theme.text)
+            };
+            let checkbox = if self.aicontext_init { "[x]" } else { "[ ]" };
+            let checkbox_style = if self.aicontext_init {
+                Style::default().fg(theme.accent).bold()
+            } else {
+                Style::default().fg(theme.dimmed)
+            };
+            let text_style = if self.aicontext_init {
+                Style::default().fg(theme.accent)
+            } else {
+                Style::default().fg(theme.dimmed)
+            };
+            let line = Line::from(vec![
+                Span::styled("AI Context:", label_style),
+                Span::raw(" "),
+                Span::styled(checkbox, checkbox_style),
+                Span::styled(" Initialize aicontext", text_style),
+            ]);
+            frame.render_widget(Paragraph::new(line), chunks[ci]);
             ci += 1;
         }
 

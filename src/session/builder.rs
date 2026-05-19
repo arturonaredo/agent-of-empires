@@ -42,6 +42,8 @@ pub struct InstanceParams {
     pub command_override: String,
     /// Additional repository paths for multi-repo workspace mode
     pub extra_repo_paths: Vec<String>,
+    /// Whether to run aicontext init + install on the project path
+    pub aicontext_init: bool,
 }
 
 /// Result of building an instance, tracking what was created for cleanup purposes.
