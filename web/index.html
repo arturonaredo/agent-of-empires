@@ -3,24 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
-    <meta name="color-scheme" content="dark" />
-    <title>Agent of Empires</title>
+    <meta name="color-scheme" content="light dark" />
+    <title>AI CLI Manager</title>
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#18181b" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
-    <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/helveticanowtext_normal_normal_400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/NotoSansMono-Regular.ttf" as="font" type="font/ttf" crossorigin />
     <!--
       Pre-React theme bootstrap. Applies the cached ResolvedTheme
       payload from localStorage to documentElement before React
-      mounts so the dashboard doesn't flash the default Empire
-      palette when the user has picked a different theme. Loaded as
+      mounts so the dashboard doesn't flash the default palette
+      when the user has picked a different theme. Loaded as
       an external script (not inline) because the dashboard's CSP
       is `script-src 'self' 'wasm-unsafe-eval'` with no unsafe-inline.
-      See #1189 + the review on PR #1197.
     -->
     <script src="/theme-bootstrap.js"></script>
   </head>

@@ -1,37 +1,37 @@
-/* Geist Sans */
+/* Helvetica Now Text */
 @font-face {
-  font-family: 'Geist Sans';
-  src: url('/fonts/Geist-Regular.woff2') format('woff2');
+  font-family: 'Helvetica Now Text';
+  src: url('/fonts/helveticanowtext_normal_normal_400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Geist Sans';
-  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+  font-family: 'Helvetica Now Text';
+  src: url('/fonts/helveticanowtext_normal_normal_500.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Geist Sans';
-  src: url('/fonts/Geist-SemiBold.woff2') format('woff2');
-  font-weight: 600;
+  font-family: 'Helvetica Now Text';
+  src: url('/fonts/helveticanowtext_normal_normal_700.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Geist Mono */
+/* Noto Sans Mono */
 @font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
+  font-family: 'NotoSansMono';
+  src: url('/fonts/NotoSansMono-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
+  font-family: 'NotoSansMono';
+  src: url('/fonts/NotoSansMono-Bold.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -39,104 +39,79 @@
 
 @import "tailwindcss";
 
-/* Build-time fallback palette. Mirrors the `default` builtin theme
-   (themes/builtin/default.toml) so the cold-load paint, before
-   useResolvedTheme has fetched and applied the user's selection,
-   matches the resolved palette for default. Keep these values in
-   sync with that TOML file. */
+/* IDS Design System tokens mapped to the AoE dashboard.
+   Light/dark values are applied server-side via resolved theme projection.
+   These build-time fallbacks match the `light` builtin theme (IDS default). */
 @theme {
-  /* Brand -- Amber/Copper (used sparingly) */
-  --color-brand-400: #fbbf24;
-  --color-brand-500: #f59e0b;
-  --color-brand-600: #d97706;
-  --color-brand-700: #b45309;
+  /* IDS Color tokens - Light theme fallbacks */
+  --color-brand-400: #000000;
+  --color-brand-500: #000000;
+  --color-brand-600: #000000;
+  --color-brand-700: #000000;
 
-  /* Accent -- Muted Teal (used sparingly) */
-  --color-accent-500: #14b8a6;
-  --color-accent-600: #0d9488;
-  --color-accent-700: #0f766e;
+  /* AI accent (IDS core-ai) */
+  --color-accent-500: #1a1aff;
+  --color-accent-600: #1a1aff;
+  --color-accent-700: #0000cc;
 
-  /* Surfaces -- neutral zinc */
-  --color-surface-700: #3f3f46;
-  --color-surface-800: #2c2c30;
-  --color-surface-850: #262629;
-  --color-surface-900: #1c1c1f;
-  --color-surface-950: #141416;
+  /* Surfaces - IDS bg tokens (light) */
+  --color-surface-700: #e3e3e3;
+  --color-surface-800: #f7f7f7;
+  --color-surface-850: #f7f7f7;
+  --color-surface-900: #ffffff;
+  --color-surface-950: #f7f7f7;
 
-  /* Semantic Text */
-  --color-text-primary: #e4e4e7;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
-  /* Body text using the dim slot must clear WCAG AA against
-     surface-900 (#1c1c1f) and surface-800 (#2c2c30); the previous
-     value (#52525b ≈ 2.6:1 vs surface-900) failed both AA body and
-     AA large. Bumped to ~5.0:1 vs surface-900 / ~4.2:1 vs surface-800
-     so per-setting descriptions and similar tertiary copy stay
-     legible. Decorative uses (separator hairlines, etc.) that need
-     to read as quieter can drop to surface-700 directly. See #1105. */
-  --color-text-dim: #8b8b94;
-  --color-text-bright: #fafafa;
+  /* Text - IDS content tokens (light) */
+  --color-text-primary: #000000;
+  --color-text-secondary: #757575;
+  --color-text-muted: #b3b3b3;
+  --color-text-dim: #757575;
+  --color-text-bright: #000000;
 
-  /* Semantic Status */
-  --color-status-running: #22c55e;
-  /* Waiting (blocked on user input) is the brightest amber in the brand
-     ramp so it wins on luminance against fresh-idle. Saturation alone
-     reads as DIMMER on dark backgrounds, so we lean on luminance. */
-  --color-status-waiting: #fbbf24;
-  /* Color of an Idle session whose Stop fired within the decay window.
-     Held constant for the full window (then snaps to `--color-status-idle`)
-     so the breathe rattle's pulse stays visually consistent. One rung
-     dimmer than waiting so the hierarchy reads bright > amber > slate. */
-  --color-status-fresh-idle: #f59e0b;
-  --color-status-idle: #71717a;
-  --color-status-error: #ef4444;
-  --color-status-starting: #f59e0b;
-  --color-status-stopped: #52525b;
+  /* Status - IDS semantic */
+  --color-status-running: #0aad0a;
+  --color-status-waiting: #ea732e;
+  --color-status-fresh-idle: #ea732e;
+  --color-status-idle: #757575;
+  --color-status-error: #c93b3a;
+  --color-status-starting: #ea732e;
+  --color-status-stopped: #b3b3b3;
 
-  /* Extended semantic tokens populated by the resolved theme
-     projection (see src/tui/styles/resolved.rs). These build-time
-     defaults match the `default` builtin theme so cold-load paint
-     matches the post-fetch paint when no localStorage cache exists. */
-  --color-selection: #3f3f46;
-  --color-session-selection: #52525b;
-  --color-terminal-active: #0d9488;
-  --color-branch: #0d9488;
-  --color-sandbox: #94a3b8;
-  --color-diff-add: #22c55e;
-  --color-diff-delete: #ef4444;
-  --color-diff-modified: #fbbf24;
-  --color-diff-header: #0d9488;
+  /* Extended semantic tokens */
+  --color-selection: #e3e3e3;
+  --color-session-selection: #f7f7f7;
+  --color-terminal-active: #1a1aff;
+  --color-branch: #1a1aff;
+  --color-sandbox: #757575;
+  --color-diff-add: #0aad0a;
+  --color-diff-delete: #c93b3a;
+  --color-diff-modified: #ea732e;
+  --color-diff-header: #1a1aff;
 
-  /* Embedded terminal cold-load defaults. useResolvedTheme refetches
-     and overrides these once the resolved palette lands, but on a
-     first visit with no localStorage cache the wterm element would
-     otherwise paint with the WASM bridge's hardcoded defaults until
-     the next frame. These match the `default` builtin projected by
-     src/tui/styles/resolved.rs::terminal_projection so the pre-fetch
-     paint matches the post-fetch paint for the default theme. */
-  --term-bg: #1c1c1f;
-  --term-fg: #e4e4e7;
-  --term-cursor: #f59e0b;
-  --term-color-0: #1c1c1f;
-  --term-color-1: #ef4444;
-  --term-color-2: #22c55e;
-  --term-color-3: #fbbf24;
-  --term-color-4: #0d9488;
-  --term-color-5: #f59e0b;
-  --term-color-6: #0d9488;
-  --term-color-7: #e4e4e7;
-  --term-color-8: #8b8b94;
-  --term-color-9: #f26969;
-  --term-color-10: #4ed17e;
-  --term-color-11: #fccc50;
-  --term-color-12: #3da9a0;
-  --term-color-13: #f7b13c;
-  --term-color-14: #3da9a0;
-  --term-color-15: #fbbf24;
+  /* Terminal cold-load defaults (light) */
+  --term-bg: #ffffff;
+  --term-fg: #000000;
+  --term-cursor: #000000;
+  --term-color-0: #ffffff;
+  --term-color-1: #c93b3a;
+  --term-color-2: #0aad0a;
+  --term-color-3: #ea732e;
+  --term-color-4: #1a1aff;
+  --term-color-5: #6b3daf;
+  --term-color-6: #0c7878;
+  --term-color-7: #000000;
+  --term-color-8: #757575;
+  --term-color-9: #ff4a3f;
+  --term-color-10: #23f444;
+  --term-color-11: #feb48d;
+  --term-color-12: #6680ff;
+  --term-color-13: #b15ff1;
+  --term-color-14: #00a3a3;
+  --term-color-15: #000000;
 
-  /* Typography */
-  --font-sans: 'Geist Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+  /* Typography - IDS */
+  --font-sans: 'Helvetica Now Text', system-ui, -apple-system, sans-serif;
+  --font-mono: 'NotoSansMono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* Layout widths */
   --width-sidebar: 280px;
@@ -146,15 +121,21 @@
   --width-dialog: 400px;
   --width-panel: 420px;
   --width-content-max: 600px;
+
+  /* IDS Border Radius - all map to 4px (--ids-size-radius-rounded) */
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+  --radius-full: 144px;
 }
 
 html {
   height: 100dvh;
   overflow: hidden;
   overscroll-behavior: none;
-  /* safe-area insets are handled by the App root, not html, to avoid
-     making the document taller than the viewport (which lets iOS scroll
-     the page when the keyboard opens, breaking keyboard-height math). */
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
@@ -169,10 +150,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Cockpit markdown — assistant-ui's MarkdownTextPrimitive renders
-   raw <p>/<ul>/<ol>/<h*>/<blockquote>/<code> elements (no class
-   names). Style them via descendant selectors so the prose looks
-   right inside the cockpit conversation. */
+/* Cockpit markdown */
 .cockpit-markdown p {
   margin: 0.5rem 0;
 }
@@ -198,25 +176,25 @@ body {
   color: var(--color-status-waiting);
   font-style: normal;
   padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
+  border-radius: 4px;
 }
 .cockpit-markdown blockquote.cockpit-callout-warn p { margin: 0; }
 .cockpit-markdown blockquote.cockpit-callout-warn strong { color: var(--color-text-bright); }
 .cockpit-markdown :where(p, li) > code {
   background: var(--color-surface-800);
   padding: 0 0.25rem;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.85em;
 }
 .cockpit-markdown a {
-  color: var(--color-brand-500);
+  color: var(--color-accent-500);
   text-decoration: underline;
 }
-.cockpit-markdown a:hover { color: var(--color-brand-400); }
+.cockpit-markdown a:hover { color: var(--color-accent-700); }
 .cockpit-markdown pre {
   margin: 0.5rem 0;
-  border-radius: 0.375rem;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--color-surface-700);
   background: var(--color-surface-950);
@@ -229,7 +207,7 @@ body {
 .cockpit-markdown .cockpit-table-wrap {
   margin: 0.75rem 0;
   border: 1px solid var(--color-surface-800);
-  border-radius: 0.375rem;
+  border-radius: 4px;
   overflow: auto;
   max-height: 24rem;
 }
@@ -274,7 +252,7 @@ body {
   border-bottom: none;
 }
 
-/* Subtle scrollbar styling */
+/* Scrollbar - IDS minimal style */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -290,7 +268,7 @@ body {
   background: var(--color-text-dim);
 }
 
-/* Dialog/panel entrance animation */
+/* Animations - IDS motion tokens */
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -305,29 +283,34 @@ body {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.15s ease-out;
+  animation: fade-in 0.2s cubic-bezier(0, 0, .58, 1);
 }
 .animate-slide-up {
-  animation: slide-up 0.2s ease-out;
+  animation: slide-up 0.35s cubic-bezier(.42, 0, 1, 1);
 }
 .animate-slide-in-right {
-  animation: slide-in-right 0.2s ease-out;
+  animation: slide-in-right 0.35s cubic-bezier(.42, 0, 1, 1);
 }
 
-/* Focus indicators for keyboard navigation */
+@media (prefers-reduced-motion) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-in-right {
+    animation-duration: 0.01ms;
+  }
+}
+
+/* Focus indicators - IDS focus color */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid var(--color-brand-600);
+  outline: 2px solid #0170e9;
   outline-offset: 2px;
 }
 
-/* wterm overrides: strip default chrome for embedded use.
-   `overflow: hidden` (not auto): wterm's content matches the container,
-   and `auto` gives iOS Safari a target for native rubber-band on small
-   touches that haven't yet crossed our gesture-lock threshold. */
+/* wterm overrides */
 .wterm {
   padding: 4px 8px;
   border-radius: 0;
@@ -337,22 +320,21 @@ select:focus-visible,
 }
 
 .wterm ::selection {
-  background: rgba(161, 161, 170, 0.2);
+  background: rgba(0, 0, 0, 0.1);
 }
 
-/* Subtle focus ring for terminal panels (desktop only).
-   Uses a pseudo-element overlay so it paints above wterm's background. */
+/* Terminal focus ring */
 @media (pointer: fine) {
   .term-panel::after {
     content: '';
     position: absolute;
     inset: 0;
-    border: 1px solid rgba(217, 119, 6, 0.45);
+    border: 1px solid rgba(26, 26, 255, 0.45);
     border-radius: inherit;
     pointer-events: none;
     z-index: 20;
     opacity: 0;
-    transition: opacity 0.15s ease-out;
+    transition: opacity 0.2s cubic-bezier(0, 0, .58, 1);
   }
   .term-panel.term-focused::after {
     opacity: 1;
@@ -362,5 +344,21 @@ select:focus-visible,
 .safe-area-inset {
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* IDS Button overrides */
+button, [role="button"] {
+  border-radius: 4px;
+  transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+}
+
+/* IDS Input/Select overrides */
+input, select, textarea {
+  border-radius: 4px;
+  border: 1px solid var(--color-surface-700);
+  transition: border-color 0.2s cubic-bezier(0, 0, 1, 1);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-text-primary);
 }
 

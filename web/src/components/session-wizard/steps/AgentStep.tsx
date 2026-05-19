@@ -82,7 +82,7 @@ function Toggle({ checked, onChange, disabled }: { checked: boolean; onChange: (
       onClick={() => !disabled && onChange(!checked)}
       className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 ${
         disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"
-      } ${checked ? "bg-brand-600" : "bg-surface-700"}`}
+      } ${checked ? "bg-[#1a1aff] dark:bg-[#6680ff]" : "bg-surface-700"}`}
     >
       <span
         className={`inline-block h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${
